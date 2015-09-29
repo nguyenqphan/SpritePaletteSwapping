@@ -16,6 +16,9 @@ public class ColorPalette : ScriptableObject {
 			var selectionPath = AssetDatabase.GetAssetPath(selectedTexture);
 
 			selectionPath = selectionPath.Replace(".png", "-color-palette.asset");
+
+			var newPalette = CustomAssetUtil.CreateAsset<ColorPalette>(selectionPath);
+
 			Debug.Log ("Creating a Palette"+selectionPath);
 		} else {
 			Debug.Log("Cant create a Palette");
