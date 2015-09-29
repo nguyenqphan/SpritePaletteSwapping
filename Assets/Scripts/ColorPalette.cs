@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using UnityEditor;
 
@@ -19,9 +20,15 @@ public class ColorPalette : ScriptableObject {
 
 			var newPalette = CustomAssetUtil.CreateAsset<ColorPalette>(selectionPath);
 
+			newPalette.source = selectedTexture;
+
 			Debug.Log ("Creating a Palette"+selectionPath);
 		} else {
 			Debug.Log("Cant create a Palette");
 		}
 	}
+
+	public Texture2D source;
+	public List<Color> palette = new List<Color>();
+	public List<Color> newPalette = new List<Color>();
 }
