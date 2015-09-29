@@ -21,6 +21,7 @@ public class ColorPalette : ScriptableObject {
 			var newPalette = CustomAssetUtil.CreateAsset<ColorPalette>(selectionPath);
 
 			newPalette.source = selectedTexture;
+			newPalette.ResetPalette();
 
 			Debug.Log ("Creating a Palette"+selectionPath);
 		} else {
@@ -31,4 +32,32 @@ public class ColorPalette : ScriptableObject {
 	public Texture2D source;
 	public List<Color> palette = new List<Color>();
 	public List<Color> newPalette = new List<Color>();
+
+	private List<Color> BuildPalette(Texture2D texture){
+
+		List<Color> palette = new List<Color> ();
+
+		var colors = texture.GetPixels ();
+
+		foreach(var color in colors){
+
+			if(!palette.Contains(color)){
+
+				if(color.a == 1){
+					palette.Add(color);
+				}
+			}
+		}
+
+		return palette;
+	}
+
+	public void ResetPalette(){
+
+		palette = BuildPalette (source);
+		newPalette = new List<Color> (palette);
+
+	}
+
+
 }
