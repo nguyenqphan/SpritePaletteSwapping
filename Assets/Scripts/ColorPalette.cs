@@ -95,6 +95,12 @@ public class ColorPaletteEditor : Editor{
 			
 			EditorGUILayout.EndHorizontal();
 		}
+
+		if(GUILayout.Button("Revert Palette")){
+			colorPalette.ResetPalette();
+		}
+
+		EditorUtility.SetDirty (colorPalette);
 		
 	}
 	
