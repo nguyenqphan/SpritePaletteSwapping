@@ -8,6 +8,7 @@ public class PaletteSwapper : MonoBehaviour {
 	
 	private Texture2D texture;
 	private Texture2D cloneTexture;
+	private MaterialPropertyBlock block;
 	
 	void Awake(){
 		spriteRenderer = GetComponent<SpriteRenderer> ();
@@ -30,10 +31,31 @@ public class PaletteSwapper : MonoBehaviour {
 		cloneTexture.SetPixels (pixels);
 		cloneTexture.Apply ();
 		
+		block = new MaterialPropertyBlock ();
+		block.AddTexture ("_MainTex", cloneTexture);
+		
+		SwapColors ();
+		
+	}
+	
+	void SwapColors(){
+		var colors = texture.GetPixels ();
+		
+		for(int i = 0; i < colors.Length; i++){
+			colors[i] = Color.red;
+		}
+		
+		cloneTexture.SetPixels (colors);
+		cloneTexture.Apply ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+	
+	void LateUpdate(){
+		spriteRenderer.SetPropertyBlock (block);
+	}
+	
 }
